@@ -295,6 +295,74 @@ describe LinkedList do
 				expect(@list.to_s).to eq str
 			end
 		end
+	end
+
+	describe "#insert_at" do
+		context "applies to a list containing a single node" do
+			before :each do
+				@list.insert_at(150)
+			end
+
+			it "#size should be 1" do
+				expect(@list.size).to eq 1
+			end
+
+			it "#head should point to new node" do
+				expect(@list.head.value).to eq 150
+			end
+
+			it "#tail should point to new node" do
+				expect(@list.tail.value).to eq 150
+			end
+		end
+
+		context "applies to a list containing more than one node, insert at head" do
+			before :each do
+				(1..5).each { |n| @list.append(Node.new(8*n + 2)) }
+				@list.insert_at(100)
+			end
+
+			it "#size should be 6" do
+				expect(@list.size).to eq 6
+			end
+
+			it "results in correct string representing the list" do
+				str = "( 100 ) -> ( 10 ) -> ( 18 ) -> ( 26 ) -> ( 34 ) -> ( 42 ) -> nil"
+				expect(@list.to_s).to eq str
+			end
+		end	
+
+		context "applies to a list containing more than one node, insert at tail" do
+			before :each do
+				(1..5).each { |n| @list.append(Node.new(8*n + 2)) }
+				@list.insert_at(100, 5)
+			end
+
+			it "#size should be 6" do
+				expect(@list.size).to eq 6
+			end
+
+			it "results in correct string representing the list" do
+				str = "( 10 ) -> ( 18 ) -> ( 26 ) -> ( 34 ) -> ( 42 ) -> ( 100 ) -> nil"
+				expect(@list.to_s).to eq str
+			end
+		end	
+
+		context "applies to a list containing more than one node, insert in middle" do
+			before :each do
+				(1..5).each { |n| @list.append(Node.new(8*n + 2)) }
+				@list.insert_at(100, 2)
+			end
+
+			it "#size should be 6" do
+				expect(@list.size).to eq 6
+			end
+
+			it "results in correct string representing the list" do
+				str = "( 10 ) -> ( 18 ) -> ( 100 ) -> ( 26 ) -> ( 34 ) -> ( 42 ) -> nil"
+				expect(@list.to_s).to eq str
+			end
+		end	
 
 	end
 end

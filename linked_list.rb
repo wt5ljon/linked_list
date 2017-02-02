@@ -139,5 +139,34 @@ class LinkedList
 			@size -= 1
 		end
 	end
+
+	def insert_at(data, index=0)
+		new_node = Node.new(data)
+		if @size == 0
+			@size = 1
+			@head = new_node
+			@tail = new_node
+		else
+			if index <= 0
+				# inserting at head of linked list
+				self.prepend(new_node)
+			elsif index >= @size
+				# inserting at tail of linked list
+				self.append(new_node)
+			else
+				# inserting in middle of linked list
+				node = @head
+				count = 1
+				while count < index do
+					node = node.next_node
+					count += 1
+				end
+				new_node.next_node = node.next_node
+				node.next_node = new_node
+				@size += 1
+			end
+		end
+	end
+
 end
 
